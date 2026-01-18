@@ -1,2 +1,4 @@
-# byob
-Bring Your Own Battleplan! Arma 3 Command and Control System
+~~~shell
+conda create -n byob python=3.11 -y
+conda activate byob
+~~~
