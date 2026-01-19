@@ -24,7 +24,7 @@ pip install -r requirements.txt
 
 ~~~shell
 python test_dump_arma.py
-sqlite3 outputs/dump_arma/state.db
+sqlite3 outputs/arma_sql/state.db
 ~~~
 
 ~~~sql
