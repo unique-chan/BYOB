@@ -17,12 +17,12 @@ if __name__ == "__main__":
         os.makedirs(db_url_)
     except Exception as e:
         print(f'💽 {e}')
-        answer = input(f'이미 저장된 Arma3 메타정보 DB가 존재합니다. 기존 DB를 삭제하고 진행하겠습니까? (Y/N): ')
+        answer = input(f'An existing Arma 3 metadata database already exists. Delete it and proceed? (Y/N):')
         if answer.lower() == 'y':
             shutil.rmtree(db_url_)
             os.makedirs(db_url_)
         else:
-            print(f'💽 프로그램을 종료합니다.')
+            print(f'💽 Migrating Arma 3 metadata into SQLite3 database: Cancelled ❌')
             exit(0)
 
     dump_arma_into_sql(db_url, json_dir)
