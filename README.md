@@ -17,10 +17,13 @@
 ~~~shell
 conda create -n byob python=3.11 -y
 conda activate byob
+pip install -r requirements.txt
 ~~~
 
 ### Test (Arma3 metadata)
+
 ~~~shell
+python test_dump_arma.py
 sqlite3 outputs/dump_arma/state.db
 ~~~
 
