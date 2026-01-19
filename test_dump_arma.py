@@ -9,8 +9,8 @@ from dump_arma.db_ingest import dump_arma_into_sql
 
 if __name__ == "__main__":
     load_dotenv()
-    db_url = os.getenv("DB_URL", "sqlite:///state.db")
-    json_dir = Path(os.getenv("JSON_DIR", ".")).resolve()
+    db_url = os.getenv("DB_URL", "sqlite:///outputs/dump_arma/state.db")
+    json_dir = Path(os.getenv("JSON_DIR", "outputs/arma_json")).resolve()
 
     try:
         db_url_ = db_url.replace("sqlite:///", "").rsplit("/", 1)[0]
