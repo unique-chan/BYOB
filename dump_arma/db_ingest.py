@@ -1,4 +1,3 @@
-# ingest.py
 import hashlib
 from uuid import uuid4
 from datetime import datetime
@@ -79,7 +78,6 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                     )
                 )
 
-                #
                 for side, key in (("friend", "friend_info"), ("enemy", "enemy_info")):
                     info = raw_json_file.get(key)
                     if not isinstance(info, dict):
