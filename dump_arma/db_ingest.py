@@ -148,4 +148,4 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                 print(f"💽 [FAIL] {f.name}: {e}")
                 fail += 1
 
-    print(f"💽 Migrating Arma 3 metadata into SQLite3 database: Done. ⭕ - ok={ok}, skipped={skip}, failed={fail}")
+    print(f"💽 Migrating Arma 3 metadata into SQLite3 database: Done ⭕ - ok={ok}, skipped={skip}, failed={fail}")
