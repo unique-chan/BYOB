@@ -57,23 +57,20 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                 raw_json_file = orjson.loads(raw)
                 sid = str(uuid4())  # snapshot id
 
-                start_iso, end_iso = None, None
+                start_iso = None
                 if isinstance(raw_json_file.get("friend_info"), dict):
                     fi0 = raw_json_file["friend_info"]
                     start_iso = time_list_to_iso(fi0["start_time"]) if "start_time" in fi0 else None
-                    end_iso = time_list_to_iso(fi0["end_time"]) if "end_time" in fi0 else None
                 elif isinstance(raw_json_file.get("enemy_info"), dict):
                     ei0 = raw_json_file["enemy_info"]
                     start_iso = time_list_to_iso(ei0["start_time"]) if "start_time" in ei0 else None
-                    end_iso = time_list_to_iso(ei0["end_time"]) if "end_time" in ei0 else None
 
                 session.add(
                     Snapshot(
                         snapshot_id=sid,
                         source_file=f.name,
                         sha256=sha,
-                        start_time=start_iso,
-                        end_time=end_iso,
+                        datetime=start_iso,
                         raw_json=dumps(raw_json_file),
                     )
                 )
