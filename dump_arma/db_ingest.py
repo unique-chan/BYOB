@@ -32,7 +32,7 @@ def dumps(raw_json_file):
 
 def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
     engine = make_engine(db_url)
-    Base.metadata.create_all(engine)
+    Base.metadata.create_all(engine) # <=> CREATE TABLE IF NOT EXISTS ... (from db_schema.py!)
     Session = make_session_factory(engine)
 
     files = sorted(json_dir.glob("*.json"))
