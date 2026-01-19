@@ -79,7 +79,7 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                     )
                 )
 
-                for side, key in (("FRIEND", "friend_info"), ("ENEMY", "enemy_info")):
+                for side, key in (("friend", "friend_info"), ("enemy", "enemy_info")):
                     info = raw_json_file.get(key)
                     if not isinstance(info, dict):
                         continue
