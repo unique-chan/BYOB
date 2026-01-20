@@ -83,12 +83,20 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                     for g in info.get("groups", []):
                         x, y, z = safe_pos3(g.get("pos", []))
                         gc = g.get("groupcode")
+                        
+                        company = gc.split("_")[0] if gc else None
+                        platoon = gc.split("_")[1] if gc else None
+                        squad = gc.split("_")[2] if gc else None
+
                         if not gc:
                             continue
                         session.add(
                             Group(
                                 snapshot_id=sid,
                                 side=side,
+                                company = company,
+                                platoon = platoon,
+                                squad = squad,
                                 groupcode=gc,
                                 display_name=g.get("display_name"),
                                 pos_x=x, pos_y=y, pos_z=z,
