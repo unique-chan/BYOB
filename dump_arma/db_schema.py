@@ -24,7 +24,7 @@ class Group(Base):
     platoon: Mapped[str] = mapped_column(String, primary_key=True)                  # Platoon (소대) identifier (i[n]: IFV, t[n]: Tank, hq[n]: headquarter, ...)
     squad: Mapped[str] = mapped_column(String, primary_key=True)                    # Squad (분대) identifier
     groupcode: Mapped[str] = mapped_column(String, primary_key=True)                # [Side]_[Company]_[Platoon]_[Squad]
-    display_name: Mapped[str | None] = mapped_column(String)                        # ???
+    # display_name: Mapped[str | None] = mapped_column(String)                        # ???
 
     pos_x: Mapped[float | None] = mapped_column(Float)                              # Leader X position of the squad 
     pos_y: Mapped[float | None] = mapped_column(Float)                              # Leader Y position of the squad  
@@ -38,6 +38,7 @@ class Unit(Base):
     snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id
     side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
     unitname: Mapped[str] = mapped_column(String, primary_key=True)
+    groupcode: Mapped[str] = mapped_column(String)                                  # foreign key to Group.groupcode
     unittype: Mapped[str | None] = mapped_column(String)
     pos_x: Mapped[float | None] = mapped_column(Float)                              # X position of the unit
     pos_y: Mapped[float | None] = mapped_column(Float)                              # Y position of the unit
@@ -55,8 +56,8 @@ class Vehicle(Base):
     snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id
     side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
     vehiclename: Mapped[str] = mapped_column(String, primary_key=True)
+    groupcode: Mapped[str] = mapped_column(String)                                  # foreign key to Group.groupcode
     vehicletype: Mapped[str | None] = mapped_column(String)
-    group_display_name: Mapped[str | None] = mapped_column(String)                  # display_name ???
     pos_x: Mapped[float | None] = mapped_column(Float)                              # X position of the vehicle
     pos_y: Mapped[float | None] = mapped_column(Float)                              # Y position of the vehicle
     pos_z: Mapped[float | None] = mapped_column(Float)                              # Z position of the vehicle
@@ -64,3 +65,4 @@ class Vehicle(Base):
     ammo_json: Mapped[str | None] = mapped_column(Text)                             # ammo (탄약) types and counts carried by the vehicle
     hitpoint_json: Mapped[str | None] = mapped_column(Text)                         # available hitpoints and their damage values
     discovered: Mapped[int | None] = mapped_column(Integer)                         # only available for enemy vehicles
+    # group_display_name: Mapped[str | None] = mapped_column(String)                # display_name ???
