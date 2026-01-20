@@ -84,9 +84,9 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                         x, y, z = safe_pos3(g.get("pos", []))
                         gc = g.get("groupcode")
                         
-                        company = gc.split("_")[0] if gc else None
-                        platoon = gc.split("_")[1] if gc else None
-                        squad = gc.split("_")[2] if gc else None
+                        company = gc.split("_")[1] if gc else None
+                        platoon = gc.split("_")[2] if gc else None
+                        squad = gc.split("_")[3] if gc else None
 
                         if not gc:
                             continue
