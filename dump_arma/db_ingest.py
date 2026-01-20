@@ -75,7 +75,7 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                     )
                 )
 
-                for side, key in (("friend", "friend_info"), ("enemy", "enemy_info")):
+                for side, key in (("b", "friend_info"), ("r", "enemy_info")):
                     info = raw_json_file.get(key)
                     if not isinstance(info, dict):
                         continue
@@ -109,7 +109,7 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                                 unitname=uname,
                                 unittype=u.get("unittype"),
                                 pos_x=x, pos_y=y, pos_z=z,
-                                behaviour=u.get("behaviour"),
+                                # behaviour=u.get("behaviour"),
                                 damage=u.get("damage", 0.0),
                                 objectparent=u.get("objectparent"),
                                 ammo_json=dumps(u.get("ammo", [])),

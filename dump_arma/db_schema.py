@@ -17,44 +17,50 @@ class Snapshot(Base):
 
 class Group(Base):
     __tablename__ = "groups"
-    snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)
-    side: Mapped[str] = mapped_column(String, primary_key=True)                     # "friend" | "enemy"
-    groupcode: Mapped[str] = mapped_column(String, primary_key=True) 
-    display_name: Mapped[str | None] = mapped_column(String)
-    pos_x: Mapped[float | None] = mapped_column(Float)
-    pos_y: Mapped[float | None] = mapped_column(Float)
-    pos_z: Mapped[float | None] = mapped_column(Float)
-    unitlist_json: Mapped[str | None] = mapped_column(Text)
-    waypointpos_json: Mapped[str | None] = mapped_column(Text)
+    snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id  
+    side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
+
+    company: Mapped[str] = mapped_column(String, primary_key=True)                  # Company (중대) identifier (1, 2, 3, ...)
+    platoon: Mapped[str] = mapped_column(String, primary_key=True)                  # Platoon (소대) identifier (i[n]: IFV, t[n]: Tank, hq[n]: headquarter, ...)
+    squad: Mapped[str] = mapped_column(String, primary_key=True)                    # Squad (분대) identifier
+    groupcode: Mapped[str] = mapped_column(String, primary_key=True)                # [Side]_[Company]_[Platoon]_[Squad]
+    display_name: Mapped[str | None] = mapped_column(String)                        # ???
+
+    pos_x: Mapped[float | None] = mapped_column(Float)                              # Leader X position of the squad 
+    pos_y: Mapped[float | None] = mapped_column(Float)                              # Leader Y position of the squad  
+    pos_z: Mapped[float | None] = mapped_column(Float)                              # Leader Z position of the squad
+    unitlist_json: Mapped[str | None] = mapped_column(Text)                         # Members belonging to each squad (json list)
+    waypointpos_json: Mapped[str | None] = mapped_column(Text)                      # ??? Waypoint positions (json list)
 
 
 class Unit(Base):
     __tablename__ = "units"
-    snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)
-    side: Mapped[str] = mapped_column(String, primary_key=True)
+    snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id
+    side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
     unitname: Mapped[str] = mapped_column(String, primary_key=True)
     unittype: Mapped[str | None] = mapped_column(String)
-    pos_x: Mapped[float | None] = mapped_column(Float)
-    pos_y: Mapped[float | None] = mapped_column(Float)
-    pos_z: Mapped[float | None] = mapped_column(Float)
-    behaviour: Mapped[str | None] = mapped_column(String)
-    damage: Mapped[float | None] = mapped_column(Float)
-    objectparent: Mapped[str | None] = mapped_column(String)
-    ammo_json: Mapped[str | None] = mapped_column(Text)
-    discovered: Mapped[int | None] = mapped_column(Integer)
+    pos_x: Mapped[float | None] = mapped_column(Float)                              # X position of the unit
+    pos_y: Mapped[float | None] = mapped_column(Float)                              # Y position of the unit
+    pos_z: Mapped[float | None] = mapped_column(Float)                              # Z position of the unit    
+    damage: Mapped[float | None] = mapped_column(Float)                             # damage value between 0.0 and 1.0
+    objectparent: Mapped[str | None] = mapped_column(String)                        # vehiclename if the unit is in a vehicle
+    ammo_json: Mapped[str | None] = mapped_column(Text)                             # ammo (탄약) types and counts carried by the unit
+    discovered: Mapped[int | None] = mapped_column(Integer)                         # only available for enemy units
+    # behaviour: Mapped[str | None] = mapped_column(String)
+
 
 
 class Vehicle(Base):
     __tablename__ = "vehicles"
-    snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)
-    side: Mapped[str] = mapped_column(String, primary_key=True)
+    snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id
+    side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
     vehiclename: Mapped[str] = mapped_column(String, primary_key=True)
     vehicletype: Mapped[str | None] = mapped_column(String)
-    group_display_name: Mapped[str | None] = mapped_column(String)
-    pos_x: Mapped[float | None] = mapped_column(Float)
-    pos_y: Mapped[float | None] = mapped_column(Float)
-    pos_z: Mapped[float | None] = mapped_column(Float)
-    damage: Mapped[float | None] = mapped_column(Float)
-    ammo_json: Mapped[str | None] = mapped_column(Text)
-    hitpoint_json: Mapped[str | None] = mapped_column(Text)
-    discovered: Mapped[int | None] = mapped_column(Integer)
+    group_display_name: Mapped[str | None] = mapped_column(String)                  # display_name ???
+    pos_x: Mapped[float | None] = mapped_column(Float)                              # X position of the vehicle
+    pos_y: Mapped[float | None] = mapped_column(Float)                              # Y position of the vehicle
+    pos_z: Mapped[float | None] = mapped_column(Float)                              # Z position of the vehicle
+    damage: Mapped[float | None] = mapped_column(Float)                             # damage value between 0.0 and 1.0
+    ammo_json: Mapped[str | None] = mapped_column(Text)                             # ammo (탄약) types and counts carried by the vehicle
+    hitpoint_json: Mapped[str | None] = mapped_column(Text)                         # available hitpoints and their damage values
+    discovered: Mapped[int | None] = mapped_column(Integer)                         # only available for enemy vehicles
