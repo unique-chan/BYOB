@@ -24,7 +24,7 @@ class Group(Base):
     platoon: Mapped[str] = mapped_column(String, primary_key=True)                  # Platoon (소대) identifier (i[n]: IFV, t[n]: Tank, hq[n]: headquarter, ...)
     squad: Mapped[str] = mapped_column(String, primary_key=True)                    # Squad (분대) identifier
     groupcode: Mapped[str] = mapped_column(String, primary_key=True)                # [Side]_[Company]_[Platoon]_[Squad]
-    # display_name: Mapped[str | None] = mapped_column(String)                        # ???
+    # display_name: Mapped[str | None] = mapped_column(String)                      # ???
 
     pos_x: Mapped[float | None] = mapped_column(Float)                              # Leader X position of the squad 
     pos_y: Mapped[float | None] = mapped_column(Float)                              # Leader Y position of the squad  
