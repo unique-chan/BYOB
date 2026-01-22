@@ -81,8 +81,8 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                         continue
 
                     for g in info.get("groups", []):
-                        x, y, z = safe_pos3(g.get("pos", []))
-                        gc = g.get("groupcode")
+                        x, y, z = safe_pos3(g.get("leaderpos", []))
+                        gc = g.get("groupname")
                         
                         company = gc.split("_")[1] if gc else None
                         platoon = gc.split("_")[2] if gc else None
@@ -97,9 +97,9 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                                 company = company,
                                 platoon = platoon,
                                 squad = squad,
-                                groupcode=gc,
+                                groupname=gc,
                                 # display_name=g.get("display_name"),
-                                pos_x=x, pos_y=y, pos_z=z,
+                                leaderpos_x=x, leaderpos_y=y, leaderpos_z=z,
                                 unitlist_json=dumps(g.get("unitlist", [])),
                                 waypointpos_json=dumps(g.get("waypointpos", [])),
                             )
@@ -117,12 +117,12 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                                 unitname=uname,
                                 unittype=u.get("unittype"),
                                 pos_x=x, pos_y=y, pos_z=z,
-                                groupcode='_'.join(uname.split('_')[:4]),
+                                groupname='_'.join(uname.split('_')[:4]),
                                 # behaviour=u.get("behaviour"),
                                 damage=u.get("damage", 0.0),
                                 objectparent=u.get("objectparent"),
                                 ammo_json=dumps(u.get("ammo", [])),
-                                discovered=u.get("discovered", 0),
+                                # discovered=u.get("discovered", 0),
                             )
                         )
 
@@ -138,12 +138,12 @@ def dump_arma_into_sql(db_url: str = None, json_dir: str = None):
                                 vehiclename=vname,
                                 vehicletype=v.get("vehicletype"),
                                 # group_display_name=v.get("group"),
-                                groupcode='_'.join(vname.split('_')[:4]),
+                                groupname='_'.join(vname.split('_')[:4]),
                                 pos_x=x, pos_y=y, pos_z=z,
                                 damage=v.get("damage", 0.0),
                                 ammo_json=dumps(v.get("ammo", [])),
                                 hitpoint_json=dumps(v.get("hitpoint", [])),
-                                discovered=v.get("discovered", 0),
+                                # discovered=v.get("discovered", 0),
                             )
                         )
 

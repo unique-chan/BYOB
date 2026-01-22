@@ -23,12 +23,11 @@ class Group(Base):
     company: Mapped[str] = mapped_column(String, primary_key=True)                  # Company (중대) identifier (1, 2, 3, ...)
     platoon: Mapped[str] = mapped_column(String, primary_key=True)                  # Platoon (소대) identifier (i[n]: IFV, t[n]: Tank, hq[n]: headquarter, ...)
     squad: Mapped[str] = mapped_column(String, primary_key=True)                    # Squad (분대) identifier
-    groupcode: Mapped[str] = mapped_column(String, primary_key=True)                # [Side]_[Company]_[Platoon]_[Squad]
-    # display_name: Mapped[str | None] = mapped_column(String)                      # ???
+    groupname: Mapped[str] = mapped_column(String, primary_key=True)                # [Side]_[Company]_[Platoon]_[Squad]
 
-    pos_x: Mapped[float | None] = mapped_column(Float)                              # Leader X position of the squad 
-    pos_y: Mapped[float | None] = mapped_column(Float)                              # Leader Y position of the squad  
-    pos_z: Mapped[float | None] = mapped_column(Float)                              # Leader Z position of the squad
+    leaderpos_x: Mapped[float | None] = mapped_column(Float)                        # Leader X position of the squad 
+    leaderpos_y: Mapped[float | None] = mapped_column(Float)                        # Leader Y position of the squad  
+    leaderpos_z: Mapped[float | None] = mapped_column(Float)                        # Leader Z position of the squad
     unitlist_json: Mapped[str | None] = mapped_column(Text)                         # Members belonging to each squad (json list)
     waypointpos_json: Mapped[str | None] = mapped_column(Text)                      # ??? Waypoint positions (json list)
 
@@ -38,7 +37,7 @@ class Unit(Base):
     snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id
     side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
     unitname: Mapped[str] = mapped_column(String, primary_key=True)
-    groupcode: Mapped[str] = mapped_column(String)                                  # foreign key to Group.groupcode
+    groupname: Mapped[str] = mapped_column(String)                                  # foreign key to Group.groupname
     unittype: Mapped[str | None] = mapped_column(String)
     pos_x: Mapped[float | None] = mapped_column(Float)                              # X position of the unit
     pos_y: Mapped[float | None] = mapped_column(Float)                              # Y position of the unit
@@ -46,7 +45,7 @@ class Unit(Base):
     damage: Mapped[float | None] = mapped_column(Float)                             # damage value between 0.0 and 1.0
     objectparent: Mapped[str | None] = mapped_column(String)                        # vehiclename if the unit is in a vehicle
     ammo_json: Mapped[str | None] = mapped_column(Text)                             # ammo (탄약) types and counts carried by the unit
-    discovered: Mapped[int | None] = mapped_column(Integer)                         # only available for enemy units
+    # discovered: Mapped[float | None] = mapped_column(Float)                       # only available for enemy units
     # behaviour: Mapped[str | None] = mapped_column(String)
 
 
@@ -56,7 +55,7 @@ class Vehicle(Base):
     snapshot_id: Mapped[str] = mapped_column(String, primary_key=True)              # foreign key to Snapshot.snapshot_id
     side: Mapped[str] = mapped_column(String, primary_key=True)                     # side identifier ("friend" | "enemy")
     vehiclename: Mapped[str] = mapped_column(String, primary_key=True)
-    groupcode: Mapped[str] = mapped_column(String)                                  # foreign key to Group.groupcode
+    groupname: Mapped[str] = mapped_column(String)                                  # foreign key to Group.groupname
     vehicletype: Mapped[str | None] = mapped_column(String)
     pos_x: Mapped[float | None] = mapped_column(Float)                              # X position of the vehicle
     pos_y: Mapped[float | None] = mapped_column(Float)                              # Y position of the vehicle
@@ -64,5 +63,5 @@ class Vehicle(Base):
     damage: Mapped[float | None] = mapped_column(Float)                             # damage value between 0.0 and 1.0
     ammo_json: Mapped[str | None] = mapped_column(Text)                             # ammo (탄약) types and counts carried by the vehicle
     hitpoint_json: Mapped[str | None] = mapped_column(Text)                         # available hitpoints and their damage values
-    discovered: Mapped[int | None] = mapped_column(Integer)                         # only available for enemy vehicles
+    # discovered: Mapped[float | None] = mapped_column(Float)                       # only available for enemy vehicles
     # group_display_name: Mapped[str | None] = mapped_column(String)                # display_name ???
